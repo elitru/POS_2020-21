@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Start Page</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <h1>Hello World!</h1>
+        <form action="./ConverterServlet" method="post">
+            <div>
+                Input (€): <input name="inputValue" type="text" value="0" />
+            </div>
+            <div>
+                Type: 
+                <select name="convertTo">
+                    <option value="Dollar">Dollar</option>
+                    <option value="Yen">Yen</option>
+                    <option value="Rupien">Rupien</option>
+                </select>
+            </div>
+            <input type="submit" value="Convert" />
+        </form>
+    </body>
+</html>
