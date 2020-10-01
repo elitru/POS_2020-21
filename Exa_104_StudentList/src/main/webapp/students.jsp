@@ -13,14 +13,23 @@
 <% 
     if(request.getAttribute("students") == null) {
         response.sendRedirect("./StudentsController");
+        return;
     }
+    
+    if(request.getAttribute("selected") == null) {
+        String filter = request.getAttribute("filter") == null ? "" : (String) request.getAttribute("filter");
+        List<Student> students = (ArrayList) request.getAttribute("students");
+        Student first = (Student) students.get(0);
+        request.setAttribute("selected", first);
+    }    
 %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <script src="https://kit.fontawesome.com/67bcba6f6a.js" crossorigin="anonymous"></script>    </head>
+        <script src="https://kit.fontawesome.com/67bcba6f6a.js" crossorigin="anonymous"></script>    
+    </head>
     <body>
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700&display=swap');
@@ -124,7 +133,7 @@
         <div class="student-list-container">
             <div class="filter">
                 <form method="POST">
-                    <input class="name" name="filter" value="" placeholder="Filter nach Namen" />
+                    <input class="name" name="filter" value=<% out.println(request.getParameter("filter") == null ? "\"\"" : "\"" + (String)request.getParameter("filter") + "\""); %> placeholder="Filter nach Namen" />
                     <button type="submit">Filtern</button>
                     <button type="reset">Filter zurücksetzen</button>
                     <div style="margin-top: 20px;">
@@ -132,14 +141,10 @@
                         <select onchange="submit();" name="selected">
                             <%
                                 List<Student> students = (ArrayList) request.getAttribute("students");
-                                String filter = (String) request.getAttribute("filter");
                                 Student selected = (Student) request.getAttribute("selected");
                                 
-                                if(students != null && filter != null) {
+                                if(students != null) {
                                     for(Student student : students) {
-                                        if(!student.getLastname().toLowerCase().contains(filter)) {
-                                            continue;
-                                        }
                                         if(selected != null && selected.getCatNo() == student.getCatNo() && selected.getClassName().equals(student.getClassName())) {
                                             out.println(String.format("<option value='%s;%d' selected>%s %s</option>", student.getClassName(), student.getCatNo(), student.getLastname(), student.getFirstname()));
                                         }else {

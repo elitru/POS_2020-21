@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -51,17 +52,27 @@ public class StudentsController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String filter = request.getParameter("filter");
+        final String filter = request.getParameter("filter") == null ? "" : request.getParameter("filter");
         String selected = request.getParameter("selected");
         Student student = null;
+        List<Student> filtered = null;
         
+        filtered = students.stream().filter(s -> s.getLastname().toLowerCase().contains(filter)).collect(Collectors.toList());
+                            
         if(selected != null && selected.contains(";")) {
-            student = (Student) students.stream().filter(s -> s.getClassName().equals(selected.split(";")[0]) && (s.getCatNo() + "").equals(selected.split(";")[1])).toArray()[0];
-        }
+            student = (Student)students.stream().filter(s -> s.getClassName().equals(selected.split(";")[0]) && (s.getCatNo() + "").equals(selected.split(";")[1]))
+                    .toArray()[0];
+            
+            if(!filtered.contains(student) && filtered.size() > 0) {
+                student = filtered.get(0);
+            }
+        }else {
+            student = filtered.get(0);
+        }        
         
         request.setAttribute("filter", filter == null ? "" : filter);
         request.setAttribute("selected", student);
-        request.setAttribute("students", students);
+        request.setAttribute("students", filtered);
         request.getRequestDispatcher("students.jsp").forward(request, response);
     }
 

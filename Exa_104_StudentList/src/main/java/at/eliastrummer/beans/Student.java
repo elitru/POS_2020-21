@@ -67,8 +67,6 @@ public class Student {
         this.lastname = lastname;
     }
  
- 
- 
     public int getCatNo() {
         return catNo;
     }
