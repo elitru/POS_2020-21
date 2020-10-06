@@ -55,25 +55,25 @@ public class StudentsController extends HttpServlet {
         final String filter = request.getParameter("filter") == null ? "" : request.getParameter("filter");
         String selected = request.getParameter("selected");
         Student student = null;
-        List<Student> filtered = null;
+        List<Student> filtered = new ArrayList<>();
         
         filtered = students.stream().filter(s -> s.getLastname().toLowerCase().contains(filter)).collect(Collectors.toList());
-                            
+
         if(selected != null && selected.contains(";")) {
             student = (Student)students.stream().filter(s -> s.getClassName().equals(selected.split(";")[0]) && (s.getCatNo() + "").equals(selected.split(";")[1]))
                     .toArray()[0];
-            
-            if(!filtered.contains(student) && filtered.size() > 0) {
+
+            if(filtered.size() > 0 && !filtered.contains(student)) {
                 student = filtered.get(0);
             }
         }else {
-            student = filtered.get(0);
+            student = filtered.size() > 0 ? filtered.get(0) : null;
         }        
-        
+
         request.setAttribute("filter", filter == null ? "" : filter);
         request.setAttribute("selected", student);
         request.setAttribute("students", filtered);
-        request.getRequestDispatcher("students.jsp").forward(request, response);
+        request.getRequestDispatcher("studentView.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

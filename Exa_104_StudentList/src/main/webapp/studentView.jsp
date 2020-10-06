@@ -19,7 +19,7 @@
     if(request.getAttribute("selected") == null) {
         String filter = request.getAttribute("filter") == null ? "" : (String) request.getAttribute("filter");
         List<Student> students = (ArrayList) request.getAttribute("students");
-        Student first = (Student) students.get(0);
+        Student first = students.size() > 0 ? (Student) students.get(0) : null;
         request.setAttribute("selected", first);
     }    
 %>
@@ -133,17 +133,17 @@
         <div class="student-list-container">
             <div class="filter">
                 <form method="POST">
-                    <input class="name" name="filter" value=<% out.println(request.getParameter("filter") == null ? "\"\"" : "\"" + (String)request.getParameter("filter") + "\""); %> placeholder="Filter nach Namen" />
-                    <button type="submit">Filtern</button>
-                    <button type="reset">Filter zurücksetzen</button>
+                    <input id="filter" class="name" name="filter" value="" placeholder="Filter nach Namen" />
+                    <button type="submit" id="submit">Filtern</button>
+                    <button type="reset" onclick="onReset()">Filter zurücksetzen</button>
                     <div style="margin-top: 20px;">
                         <span style="padding-right: 10px;">Schüler auswählen: </span>
-                        <select onchange="submit();" name="selected">
+                        <select onchange="onSubmit()" name="selected">
                             <%
                                 List<Student> students = (ArrayList) request.getAttribute("students");
                                 Student selected = (Student) request.getAttribute("selected");
                                 
-                                if(students != null) {
+                                if(students != null && students.size() > 0) {
                                     for(Student student : students) {
                                         if(selected != null && selected.getCatNo() == student.getCatNo() && selected.getClassName().equals(student.getClassName())) {
                                             out.println(String.format("<option value='%s;%d' selected>%s %s</option>", student.getClassName(), student.getCatNo(), student.getLastname(), student.getFirstname()));
@@ -178,5 +178,29 @@
                 %>
             </div>
         </div>
+        <script>
+            window.onload = () => {
+                let value = "";
+                
+                <%
+                    String val = request.getParameter("filter");
+                    
+                    if(val != null) {
+                        out.println("value = '" + val + "';");
+                    }
+                %>
+                
+                document.getElementById("filter").value = value;
+            };
+            
+            const onReset = () => {
+                document.getElementById("filter").value = "";
+                document.getElementById("submit").click();
+            };
+            
+            const onSubmit = () => {
+                document.getElementById("submit").click();
+            };
+        </script>
     </body>
 </html>
