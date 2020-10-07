@@ -9,21 +9,21 @@
     </head>
     <body style="background: dodgerblue;">
         <h1>Welcome to our guest book!</h1>
-        <form action="GuestBookController" method="POST">
+        <form action="GuestBookController" method="POST" onsubmit="return validate();">
             <table border="0">
                 <tbody>
                     <tr>
                         <td>Nickname:</td>
-                        <td><input name="nickname" value="spiderman" type="text" /></td>
+                        <td><input id="nickname" name="nickname" value="spiderman" type="text" /></td>
                     </tr>
                     <tr>
                         <td>E-Mail:</td>
-                        <td><input name="email" value="spiderman@marvel.com" type="text" /></td>
+                        <td><input id="email" name="email" value="spiderman@marvel.com" type="text" /></td>
                     </tr>
                     <tr>
                         <td>Command:</td>
                         <td>
-                            <textarea name="command">Create guestbook</textarea>
+                            <textarea id="command" name="command">Create guestbook</textarea>
                         </td>
                     </tr>
                     <tr>
@@ -44,5 +44,6 @@
                 }
             }
         %>
+        <script src="index.js" type="text/javascript"></script>
     </body>
 </html>
