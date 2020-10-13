@@ -24,6 +24,10 @@ public class Pizza {
         this.imageSource = imageSource;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
@@ -60,7 +64,7 @@ public class Pizza {
         String result = "<section class='pizza'>";
            
         result += String.format("<div style='background: url(\"%s\") center no-repeat;' class='pizza-img'></div>", imageSource);
-        result += String.format("<div class='pizza-info'><span class='pizza-title'>%s</span><span class='description'>%s</span></div>", name, description);
+        result += String.format("<div class='pizza-info'><span class='pizza-title'>%s</span><span class='description'>%s</span></div>", name + " " + String.format("€ %.2f", getPrice()), description);
         result += String.format("<input type='number' value='0' name='%s' class='amount' />", "amount_" + id);
         
         return result + "</section>";

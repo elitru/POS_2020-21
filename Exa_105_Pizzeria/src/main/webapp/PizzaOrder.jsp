@@ -13,14 +13,13 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Pizza Order Service</title>
         <link href="index.css" rel="stylesheet" type="text/css"/>
-        <script src="index.js" type="text/javascript"></script>
     </head>
     <body>
         <div class="title">
             <img src="pizza-slice.png" />
             <h1>Pizzeria de Italiano</h1>
         </div>
-        <form>
+        <form onsubmit="return isValid();" method="POST">
             <h2>Pizza-Auswahl</h2>
             <div class="pizza-list">
                 <%
@@ -32,9 +31,10 @@
                 %>
             </div>
             <div class="delivery">
-                <input type="text" value="" placeholder="Lieferadresse" />
+                <input type="text" id="deliver-to" value="" name="delivery" placeholder="Lieferadresse" />
                 <button type="submit">Bestellen</button>
             </div>
         </form>
+        <script src="index.js" type="text/javascript"></script>
     </body>
 </html>

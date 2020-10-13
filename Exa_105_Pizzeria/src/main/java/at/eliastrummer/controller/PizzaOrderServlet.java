@@ -10,7 +10,9 @@ import at.eliastrummer.io.IOHandler;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletConfig;
@@ -66,7 +68,23 @@ public class PizzaOrderServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Map<Pizza, Integer> selected = new HashMap<>();
         
+        pizzas.forEach(pizza -> {
+            String param = request.getParameter("amount_"+ pizza.getId());
+            
+            if (param != null) {
+                int amount = Integer.parseInt(param);
+                
+                if(amount > 0) {
+                    selected.put(pizza, amount);
+                }
+            }
+        });
+        
+        request.setAttribute("selected", selected);
+        request.setAttribute("delivery", request.getParameter("delivery"));
+        request.getRequestDispatcher("PizzaOrderSummary.jsp").forward(request, response);
     }
 
     /**
