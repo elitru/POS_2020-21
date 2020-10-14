@@ -4,6 +4,7 @@
     Author     : root
 --%>
 
+<%@page import="at.eliastrummer.pizzeria.LanguageSelector"%>
 <%@page import="java.util.List"%>
 <%@page import="at.eliastrummer.beans.Pizza"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -20,19 +21,19 @@
             <h1>Pizzeria de Italiano</h1>
         </div>
         <form onsubmit="return isValid();" method="POST">
-            <h2>Pizza-Auswahl</h2>
+            <h2><% out.println(LanguageSelector.getTranslation(request, response, "pizza-selection")); %></h2>
             <div class="pizza-list">
                 <%
                     List<Pizza> pizzas = (List<Pizza>) application.getAttribute("pizzas");
 
                     for(Pizza pizza : pizzas) {
-                        out.println(pizza.toHTML());
+                        out.println(pizza.toHTML(request, response));
                     }
                 %>
             </div>
             <div class="delivery">
-                <input type="text" id="deliver-to" value="" name="delivery" placeholder="Lieferadresse" />
-                <button type="submit">Bestellen</button>
+                <input type="text" id="deliver-to" value="" name="delivery" placeholder=<% out.println("'" + LanguageSelector.getTranslation(request, response, "deliver-to") + "'"); %> />
+                <button type="submit"><% out.println(LanguageSelector.getTranslation(request, response, "order")); %></button>
             </div>
         </form>
         <script src="index.js" type="text/javascript"></script>

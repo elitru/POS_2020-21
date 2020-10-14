@@ -4,6 +4,7 @@
     Author     : root
 --%>
 
+<%@page import="at.eliastrummer.pizzeria.LanguageSelector"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map.Entry"%>
 <%@page import="java.util.Map"%>
@@ -13,7 +14,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Bestellungsübersicht</title>
+        <title><% out.println(LanguageSelector.getTranslation(request, response, "overview")); %></title>
         <link href="index.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
@@ -27,9 +28,9 @@
             <div class="table">
                 <div class="row table-title-row">
                     <section class="pizza-name table-title">Pizza</section>
-                    <section class="pizza-price table-title">Preis</section>
-                    <section class="pizza-amount table-title">Stück</section>
-                    <section class="pizza-price-overall table-title">Gesamt</section>
+                    <section class="pizza-price table-title"><% out.println(LanguageSelector.getTranslation(request, response, "price")); %></section>
+                    <section class="pizza-amount table-title"><% out.println(LanguageSelector.getTranslation(request, response, "amount")); %></section>
+                    <section class="pizza-price-overall table-title"><% out.println(LanguageSelector.getTranslation(request, response, "overall")); %></section>
                 </div>
                 <%
                     Map<Pizza, Integer> selectedPizzas = (Map<Pizza, Integer>) request.getAttribute("selected");
@@ -57,7 +58,7 @@
                     out.println(String.format(overall, sum));
                 %>
                 <div class="delivery-to">
-                    Lieferadresse: 
+                    <% out.println(LanguageSelector.getTranslation(request, response, "deliver-to")); %>: 
                     <span>
                         <% 
                             String delivery = (String) request.getAttribute("delivery");
@@ -69,7 +70,7 @@
                     </span>
                 </div>
                 <div class="back">
-                    <a href="./PizzaOrderServlet">Zurück</a>
+                    <a href="./PizzaOrderServlet"><% out.println(LanguageSelector.getTranslation(request, response, "back")); %></a>
                 </div>
             </div>
         </div>
