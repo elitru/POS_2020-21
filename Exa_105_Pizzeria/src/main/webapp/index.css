@@ -27,6 +27,17 @@ body {
     align-content: center;
 }
 
+
+.title select {
+    background: transparent;
+    color: white;
+    border: none;
+    border-bottom: solid 2px white;
+    font-size: 17px;
+    margin-top: 20px;
+    padding: 8px 20px;
+}
+
 .title img {
     width: 100px;
     height: auto;

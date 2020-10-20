@@ -59,4 +59,14 @@ public class LanguageSelector {
 
         return TRANSLATIONS.get(translationKey)[language];
     }
+    
+    public static int getLanguage(HttpServletRequest req) {
+        for(Cookie cookie : req.getCookies()) {
+            if(cookie.getName().equals("lang")){
+                return Integer.parseInt(cookie.getValue());
+            }
+        }
+            
+        return DEFAULT_LANG;
+    }
 }

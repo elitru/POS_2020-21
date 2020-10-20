@@ -19,6 +19,19 @@
         <div class="title">
             <img src="pizza-slice.png" />
             <h1>Pizzeria de Italiano</h1>
+            <select onchange="onChangeLanguage(event)">
+                <%
+                    int lang = LanguageSelector.getLanguage(request);
+                    
+                    if(lang == 0) {
+                        out.println("<option value='0' selected>Deutsch</option>");
+                        out.println("<option value='1'>Englisch</option>");
+                    }else{
+                        out.println("<option value='0'>Deutsch</option>");
+                        out.println("<option value='1' selected>Englisch</option>");
+                    }
+                %>
+            </select>
         </div>
         <form onsubmit="return isValid();" method="POST">
             <h2><% out.println(LanguageSelector.getTranslation(request, response, "pizza-selection")); %></h2>

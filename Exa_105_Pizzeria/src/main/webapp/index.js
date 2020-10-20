@@ -18,3 +18,9 @@ const isValid = () => {
     
     return valid;
 };
+
+const onChangeLanguage = (event) => {
+    const cookie = document.cookie.replace(/^lang=[0,1]/, `lang=${event.target.value}`);
+    document.cookie = cookie;
+    window.location.reload();
+};
