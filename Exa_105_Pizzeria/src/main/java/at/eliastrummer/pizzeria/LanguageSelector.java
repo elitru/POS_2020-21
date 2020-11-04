@@ -5,7 +5,6 @@
  */
 package at.eliastrummer.pizzeria;
 
-import java.net.http.HttpRequest;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;

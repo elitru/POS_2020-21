@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+    --one: #0CCA4A;
+    --two: #6E8387;
+    --three: #A4B8C4;
+    --four: #C8D3D5;
+    --five: #FCFAFA;
+    --six: #0ba73e;
+    --seven: #444;
+}
+
+* {
+    font-family: 'Maven Pro' !important;
+    box-sizing: border-box;
+}
+
+html, body {
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    background: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.box-container {
+    width: 90%;
+    height: 90%;
+    background: var(--five);
+    overflow: hidden;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 10px 0px #999;
+    border-bottom: solid 10px var(--one);
+}
+
+.editor-container {
+    width: 30%;
+    height: auto;
+    padding: 30px 120px;
+    display: flex;
+    flex-direction: column;
+}
+
+.lessons-container {
+    width: 70%;
+    height: auto;
+    padding: 30px 10%;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    margin: 0px;
+    padding: 0px;
+    margin-bottom: 20px;
+    color: var(--six);
+    font-size: 35px;
+}
+
+h2 {
+    margin: 0px;
+    padding: 0px;
+    margin-bottom: 40px;
+    color: var(--two);
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.input-section {
+    padding: 15px 0px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-section .title {
+    padding-bottom: 5px;
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--seven);
+}
+
+.input-section input, select {
+    width: 280px;
+    font-size: 16px;
+    padding: 14px 12px;
+    background: #eee;
+    border: none;
+    border-bottom: solid 2px var(--six);
+}
+
+.input-section button {
+    width: 280px;
+    color: white;
+    text-align: center;
+    padding: 14px 12px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    background: var(--one);
+    transition: all 400ms;
+    font-weight: 600;
+}
+
+.input-section button:hover {
+    background: var(--six);
+}
+
+.error {
+    color: #d52d2d;
+    display: block;
+    margin-top: 5px;
+    width: 280px;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 300ms;
+}
+
+.table-container {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    width: 100%;
+}
+
+.table-row {
+    display: flex;
+    align-content: stretch;
+    align-items: stretch;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+    border-bottom: solid 1px var(--six);
+}
+
+.table-row section {
+    padding: 10px 20px;
+    font-size: 17px;
+    width: 100%;
+    display: flex;
+    background: #eee;
+    flex-direction: column;
+    border-right: solid 1px var(--six);
+}
+
+.table-row span:first-child {
+    font-weight: 600;
+    color: #222;
+}
+
+.table-row span:last-child {
+    font-weight: 400;
+    color: #444;
+    padding-top: 5px;
+}
+
+.table-header {
+    background: var(--six) !important;
+    font-weight: bold;
+    color: white;
+}
+
+.lesson {
+    width: 8% !important;
+    min-width: 50px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.supplement span {
+    color: #d52d2d !important;
+}
