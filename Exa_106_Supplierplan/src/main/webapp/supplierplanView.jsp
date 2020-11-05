@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
     <c:set var="daysOfWeek" value="<%=DaysOfWeek.values()%>" />
+    <c:set var="rows" value="${applicationScope.rowLessons}" />
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="style/styles.css" rel="stylesheet" type="text/css"/>
@@ -13,7 +14,7 @@
         <div class="box-container">
             <div class="editor-container">
                 <h1>Stundenplanverwerwaltung</h1>
-                <h2>4 DHIF</h2>
+                <h2>${applicationScope.class}</h2>
                 <form method="POST" onsubmit="return isValid();">
                     <section class="input-section">
                         <span class="title">Tag</span>
@@ -25,7 +26,7 @@
                     </section>
                     <section class="input-section">
                         <span class="title">Stunde</span>
-                        <select if="lesson" name="lessons">
+                        <select if="lesson" name="lesson">
                             <c:forEach var="counter" begin="1" end="10">
                                 <option value=${counter}>${counter}</option>
                             </c:forEach>
@@ -56,7 +57,7 @@
                         <section class="thu table-header">Do</section>
                         <section class="fir table-header">Fr</section>
                     </div>
-                    <div class="table-row">
+                    <!--<div class="table-row">
                         <section class="lesson table-header">1</section>
                         <section class="tue ">
                             <span>D</span>
@@ -78,7 +79,29 @@
                             <span>D</span>
                             <span>SB</span>
                         </section>
-                    </div>
+                    </div>-->
+                    <c:forEach var="row" items="${rows}" varStatus="lesson">
+                        <div class="table-row">
+                            <section class="lesson table-header">${lesson.index + 1}</section>
+                            <c:forEach var="lessonEntry" items="${row.lessons}">
+                                <section class="${lessonEntry.supplement ? "supplement" : ""}">
+                                    <span>${lessonEntry.subject}</span>
+                                    <span>
+                                        <c:forEach var="teacher" items="${lessonEntry.teachers}" varStatus="teacherCount">
+                                            <c:choose>
+                                                <c:when test="${teacherCount.index < lessonEntry.teachers.size() - 1}">
+                                                    <c:out value="${teacher.abbreviation}," />
+                                                </c:when>
+                                                <c:otherwise>
+                                                    ${teacher.abbreviation}
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </span>
+                                </section>
+                            </c:forEach>
+                        </div>
+                    </c:forEach>
                 </div>
             </div>
         </div>
