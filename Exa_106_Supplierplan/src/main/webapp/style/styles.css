@@ -71,7 +71,7 @@ h1 {
 h2 {
     margin: 0px;
     padding: 0px;
-    margin-bottom: 40px;
+    margin-bottom: 10px;
     color: var(--two);
     font-size: 28px;
     font-weight: 600;
@@ -186,4 +186,13 @@ h2 {
 
 .supplement span {
     color: #d52d2d !important;
+}
+
+.error {
+    padding: 0px;
+    margin: 0px;
+    font-size: 26px;
+    color: #d52d2d !important;
+    margin-bottom: 30px;
+    width: 100%;
 }

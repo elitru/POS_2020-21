@@ -54,6 +54,13 @@ public class SupplierplanController extends HttpServlet {
         List<LessonsRow> rows = (List<LessonsRow>) getServletContext().getAttribute("rowLessons");
         LessonsRow row = rows.get(lesson - 1);
         Lesson ls = row.getLessons().get(dayOfWeekId - 1);
+        
+        if(ls.getSubject() == null && ls.getTeachers() == null) {
+            request.setAttribute("supplementError", "Supplierung einer Freistunde nicht möglich");
+            request.getRequestDispatcher("supplierplanView.jsp").forward(request, response);
+            return;
+        }
+        
         ls.setTeachers(parsedTeachers);
         ls.setSubject(subject);
         ls.setSupplement(true);

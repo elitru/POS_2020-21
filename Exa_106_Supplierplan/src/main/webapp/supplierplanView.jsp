@@ -7,7 +7,7 @@
     <c:set var="rows" value="${applicationScope.rowLessons}" />
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="style/styles.css" rel="stylesheet" type="text/css"/>
+        <link href="style/styles.css" rel="stylesheet" type="text/css" />
         <title>Supplierplan Verwaltung</title>
     </head>
     <body>
@@ -15,6 +15,9 @@
             <div class="editor-container">
                 <h1>Stundenplanverwerwaltung</h1>
                 <h2>${applicationScope.class}</h2>
+                <c:if test="${requestScope.supplementError != null}">
+                    <h3 class="error">${requestScope.supplementError}</h3>
+                </c:if>
                 <form method="POST" onsubmit="return isValid();">
                     <section class="input-section">
                         <span class="title">Tag</span>
