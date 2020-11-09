@@ -191,8 +191,9 @@ h2 {
 .error {
     padding: 0px;
     margin: 0px;
-    font-size: 26px;
+    font-size: 16px;
     color: #d52d2d !important;
     margin-bottom: 30px;
     width: 100%;
+    padding-top: 5px;
 }
