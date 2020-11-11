@@ -3,11 +3,11 @@ package at.eliastrummer.controller;
 import at.eliastrummer.beans.Lesson;
 import at.eliastrummer.beans.LessonsRow;
 import at.eliastrummer.beans.Teacher;
+import at.eliastrummer.bl.SupplementManager;
 import at.eliastrummer.utils.IOHandler;
 import at.eliastrummer.utils.Mapper;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,10 +26,11 @@ public class SupplierplanController extends HttpServlet {
             super.init(config);
             
             String path = config.getServletContext().getRealPath("/stundenplan.csv");
-            List<Lesson> lessons = IOHandler.loadLessons(path);
+            List<String> inputFileInLines = IOHandler.loadFile(path);
+            List<Lesson> lessons = IOHandler.loadLessons(inputFileInLines);
             config.getServletContext().setAttribute("rowLessons", Mapper.rowifyLessons(lessons));
-            config.getServletContext().setAttribute("class", IOHandler.loadClassName(path));
-        } catch (Exception ex) {
+            config.getServletContext().setAttribute("class", inputFileInLines.get(0));
+        } catch (FileNotFoundException ex) {
             Logger.getLogger(SupplierplanController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -50,20 +51,14 @@ public class SupplierplanController extends HttpServlet {
         String teachers = request.getParameter("teachers");
         
         List<Teacher> parsedTeachers = Mapper.toTeachers(teachers);
-        
         List<LessonsRow> rows = (List<LessonsRow>) getServletContext().getAttribute("rowLessons");
-        LessonsRow row = rows.get(lesson - 1);
-        Lesson ls = row.getLessons().get(dayOfWeekId - 1);
         
-        if(ls.getSubject() == null && ls.getTeachers() == null) {
+        if(!SupplementManager.setSupplement(rows, parsedTeachers, dayOfWeekId, lesson, subject)) {
             request.setAttribute("supplementError", "Supplierung einer Freistunde nicht möglich");
             request.getRequestDispatcher("supplierplanView.jsp").forward(request, response);
             return;
         }
         
-        ls.setTeachers(parsedTeachers);
-        ls.setSubject(subject);
-        ls.setSupplement(true);
         request.getRequestDispatcher("supplierplanView.jsp").forward(request, response);
     }
     
@@ -71,5 +66,4 @@ public class SupplierplanController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }
