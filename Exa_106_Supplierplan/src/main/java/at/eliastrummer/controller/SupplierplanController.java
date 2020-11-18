@@ -55,8 +55,6 @@ public class SupplierplanController extends HttpServlet {
         
         if(!SupplementManager.setSupplement(rows, parsedTeachers, dayOfWeekId, lesson, subject)) {
             request.setAttribute("supplementError", "Supplierung einer Freistunde nicht möglich");
-            request.getRequestDispatcher("supplierplanView.jsp").forward(request, response);
-            return;
         }
         
         request.getRequestDispatcher("supplierplanView.jsp").forward(request, response);
