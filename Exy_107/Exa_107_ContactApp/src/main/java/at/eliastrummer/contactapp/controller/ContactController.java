@@ -4,6 +4,7 @@ import at.eliastrummer.contactapp.pojo.Contact;
 import at.eliastrummer.contactapp.utils.IOHandler;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
@@ -32,7 +33,6 @@ public class ContactController extends HttpServlet {
         }
     }
     
-    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -40,6 +40,7 @@ public class ContactController extends HttpServlet {
         if(request.getSession().getAttribute("contacts") == null) {
             request.getSession().setAttribute("allContacts", new ArrayList<Contact>(){{ addAll(contacts); }});
             request.getSession().setAttribute("contacts", new ArrayList<Contact>(){{ addAll(contacts); }});
+            request.getSession().setAttribute("favs", new ArrayList<Contact>());
         }
         
         if(request.getAttribute("page") == null) {
@@ -67,7 +68,8 @@ public class ContactController extends HttpServlet {
         
         final String toBeDeleted = request.getParameter("delete");
         if(toBeDeleted != null && !toBeDeleted.equals("")) {
-            con.removeIf(c -> Integer.toString(c.getId()).equals(toBeDeleted));
+            List<String> toBeDeletedList = Arrays.asList(toBeDeleted.split(";"));
+            con.removeIf(c -> toBeDeletedList.contains(Integer.toString(c.getId())));
         }
         
         List<Contact> contactsCopy = new ArrayList<Contact>(){{ addAll(con); }};
@@ -79,6 +81,30 @@ public class ContactController extends HttpServlet {
         filter(contactsCopy, company, name, gender);
         sort(contactsCopy, sortBy);
         
+        final String favs = request.getParameter("favs");
+        if(favs != null && !favs.equals("")) {
+            List<String> favList = Arrays.asList(favs.split(";"));
+            List<Contact> sessionFavList = (List<Contact>) request.getSession().getAttribute("favs");
+            if(sessionFavList != null) {
+                sessionFavList.clear();
+            }else{
+                sessionFavList = new ArrayList<Contact>();
+            }
+            final List<Contact> finalFavList = sessionFavList;
+            favList.forEach(id -> {
+                Contact contact = getById(con, Integer.parseInt(id));
+                if(contact != null) {
+                    finalFavList.add(contact);
+                }
+            });
+            request.getSession().setAttribute("favs", finalFavList);
+            System.out.println(">> " + sessionFavList.size());
+        }else{
+            List<Contact> sessionFavList = (List<Contact>) request.getSession().getAttribute("favs");
+            sessionFavList.clear();
+            request.getSession().setAttribute("favs", sessionFavList);
+        }
+        
         request.getSession().setAttribute("contacts", contactsCopy);
         request.setAttribute("filterName", name);
         request.setAttribute("filterGender", gender);
@@ -86,6 +112,16 @@ public class ContactController extends HttpServlet {
         request.setAttribute("sortBy", sortBy);
         
         request.getRequestDispatcher("contactView.jsp").forward(request, response);
+    }
+    
+    private Contact getById(List<Contact> contacts, int id) {
+        for(Contact c : contacts) {
+            if(c.getId() == id) {
+                return c;
+            }
+        }
+        
+        return null;
     }
     
     private void filter(List<Contact> contacts, String companyName, String nameFilter, String genderFilter) {

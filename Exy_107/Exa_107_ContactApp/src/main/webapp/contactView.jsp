@@ -14,6 +14,7 @@
     <c:set var="filterName" value="<%= request.getAttribute("filterName") != null ? (String)request.getAttribute("filterName") : "" %>" />
     <c:set var="sortBy" value="<%= request.getAttribute("sortBy") != null ? (String)request.getAttribute("sortBy") : "sort_4" %>" />
     <c:set var="contacts" value="${sessionScope.contacts}" />
+    <c:set var="favs" value="${sessionScope.favs}" />
     <body>
         <form method="POST" action="ContactController" id="form">
             <div class="container">
@@ -21,6 +22,7 @@
                     <input type="text" placeholder="Company name" name="filterCompanyName" value="${filterCompanyName}" />
                     <input type="text" placeholder="Name" name="filterName" value="${filterName}" />
                     <input type="text" name="delete" value="" hidden id="deleteInput" />
+                    <input type="text" name="favs" value="" hidden id="favInput" />
                     <select name="filterGender">
                         <c:choose>
                             <c:when test="${filterGender == 'Male'}">
@@ -71,7 +73,9 @@
                             </c:choose>
                         </select>
                     </div>
-                    <button type="submit" id="submitForm" class="apply">Apply</button>
+                    <button type="button" id="submitForm" class="apply" onclick="onSubmitForm()">Apply</button>
+                    <button type="button" id="download" onclick="downloadFavourites()"><i class="fas fa-file-download"></i></button>
+                    <button type="button" id="submitFormWithDelete" onclick="onSubmitWithDelete()" class="apply">Delete</button>
                 </div>
                 <div class="table-container">
                     <div class="table">
@@ -100,7 +104,14 @@
                             <c:if test="${i < contacts.size()}">
                                 <section class="table-row">
                                     <span class="delete">
-                                        <i class="far fa-trash-alt" onclick="onDelete(${contacts[i].id})"></i>
+                                        <c:set var="contains" value="false" />
+                                        <c:forEach var="entry" items="${favs}">
+                                            <c:if test="${entry.id == contacts[i].id}">
+                                                <c:set var="contains" value="true" />
+                                            </c:if>
+                                        </c:forEach>
+                                        <i class="fas fa-star fcon ${contains ? "fav-marked" : ""}" id="fav-${contacts[i].id}" onclick="onSwitchFav(${contacts[i].id})"></i>
+                                        <i class="far fa-trash-alt del" id="delete-${contacts[i].id}" onclick="onSwitchDelete(${contacts[i].id})"></i>
                                     </span>
                                     <span class="id">
                                         ${contacts[i].id}

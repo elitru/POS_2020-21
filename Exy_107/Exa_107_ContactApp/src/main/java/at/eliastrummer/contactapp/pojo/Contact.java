@@ -11,9 +11,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import java.io.Serializable;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,7 +24,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Contact {
+@EqualsAndHashCode
+public class Contact implements Serializable {
     private int id;
     private String firstname;
     private String lastname;

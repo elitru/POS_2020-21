@@ -1,7 +1,11 @@
 package at.eliastrummer.contactapp.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.io.Serializable;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,9 +15,15 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Company implements Comparable<Company>{
+@EqualsAndHashCode
+public class Company implements Comparable<Company>, Serializable {
+    @EqualsAndHashCode.Include
     private String name;
+    @EqualsAndHashCode.Include
     private String stockmarket;
+    @EqualsAndHashCode.Exclude
+    @JsonIgnore
+    private List<Contact> contacts;
 
     @Override
     public int compareTo(Company o) {
