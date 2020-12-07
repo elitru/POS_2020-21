@@ -135,7 +135,7 @@
                                             </c:forEach>
                                     </span>
                                     <span class="birthdate">
-                                        <c:out value="${contacts[i].birthdate} (${contacts[i].age})" />
+                                        <c:out value="${contacts[i].birthdate} (${contacts[i].ageInYears})" />
                                     </span>
                                     <span class="company">
                                         <c:out value="${contacts[i].company.name} (${contacts[i].company.stockmarket})" />

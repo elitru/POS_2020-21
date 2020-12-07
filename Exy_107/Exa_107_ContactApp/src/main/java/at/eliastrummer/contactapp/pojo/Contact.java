@@ -14,6 +14,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import java.io.Serializable;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -41,7 +42,11 @@ public class Contact implements Serializable {
         return DTF.format(dateOfBirth);
     }
     
-    public int getAge() {
+    public int getAgeInYears() {
         return Period.between(dateOfBirth, LocalDate.now()).getYears();
+    }
+    
+    public long getAge() {
+        return ChronoUnit.DAYS.between(dateOfBirth, LocalDate.now());
     }
 }
