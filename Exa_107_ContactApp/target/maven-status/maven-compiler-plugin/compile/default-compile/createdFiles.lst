@@ -1,0 +1,13 @@
+at\eliastrummer\contactapp\JAXRSConfiguration.class
+at\eliastrummer\contactapp\utils\IOHandler$2.class
+at\eliastrummer\contactapp\controller\ContactController$3.class
+at\eliastrummer\contactapp\resources\JavaEE8Resource.class
+at\eliastrummer\contactapp\controller\ContactController$2.class
+at\eliastrummer\contactapp\utils\IOHandler$1.class
+at\eliastrummer\contactapp\controller\ContactController.class
+at\eliastrummer\contactapp\controller\ContactController$1.class
+at\eliastrummer\contactapp\pojo\Contact.class
+at\eliastrummer\contactapp\utils\DateDeserializer.class
+at\eliastrummer\contactapp\utils\IOHandler.class
+at\eliastrummer\contactapp\controller\DownloadController.class
+at\eliastrummer\contactapp\pojo\Company.class
