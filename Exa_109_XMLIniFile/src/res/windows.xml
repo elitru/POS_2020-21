@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<windows>
+
+
+<window name="Test" type="Window">
+<xpos>200</xpos>
+<ypos>200</ypos>
+<width>200</width>
+<height>200</height>
+</window>
+<window name="Test2" type="Dialog">
+<xpos>1000</xpos>
+<ypos>1000</ypos>
+<width>500</width>
+<height>500</height>
+</window>
+</windows>
