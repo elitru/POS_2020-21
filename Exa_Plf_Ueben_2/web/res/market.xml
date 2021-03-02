@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<market>
+    <product>
+        <product_name>Krasses produkt 1</product_name>
+        <price>9.50€</price>
+    </product>
+    <product>
+        <product_name>Krasses produkt 2</product_name>
+        <price>12.50€</price>
+    </product>
+    <product>
+        <product_name>Krasses produkt 3</product_name>
+        <price>17.50€</price>
+    </product>
+    <product>
+        <product_name>Krasses produkt 4</product_name>
+        <price>22.50€</price>
+    </product>
+</market>
