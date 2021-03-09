@@ -40,6 +40,8 @@ public class WeatherController extends HttpServlet {
         request.setAttribute("lang", language);
         request.getRequestDispatcher("weatherView.jsp").forward(request, response);
     }
+    
+    
 
     @Override
     public String getServletInfo() {

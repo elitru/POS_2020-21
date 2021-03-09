@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:useBean id="translationService" class="at.eliastrummer.utils.TranslationService"/>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,7 +14,7 @@
             <div class="top-container">
                     <section class="input-container">
                         <div>
-                            <span>${lang == 'en' ? "Language" : "Sprache"}</span>
+                            <span>${translationService.translate(lang, "lang")}</span>
                             <select name="lang" onchange="onChangeLanguage()">
                                 <c:choose>
                                     <c:when test="${lang == 'de'}">
@@ -30,13 +31,13 @@
                     </section>
                     <section class="input-container">
                         <div>
-                            <span>${lang == 'en' ? "City" : "Stadt"}</span>
+                            <span>${translationService.translate(lang, "city")}</span>
                             <input id="city" name="city" value="${city}" placeholder="Kaindorf" />
                             <span id="cityErr" class="error">You must specify a location</span>
                         </div>
                     </section>
                     <button>
-                        ${lang == 'en' ? "Get weather data" : "Wetterdaten abrufen"}
+                        ${translationService.translate(lang, "getdata")}
                     </button>
             </div>
         </form>
@@ -47,51 +48,51 @@
             <div class="info-container">
                 <section class="info-block">
                     <h2>
-                        ${lang == 'de' ? "Stadt" : "City"} (${loc.city.name})
+                        ${translationService.translate(lang, "city")} (${loc.city.name})
                     </h2>
                     <div class="info-row">
-                        <span><b>${lang == 'en' ? "Coordinates (Lo, La)" : "Koordinaten (L, B)"}: </b> ${loc.city.coord.lon}, ${loc.city.coord.lat}</span>
+                        <span><b>${translationService.translate(lang, "cord")}: </b> ${loc.city.coord.lon}, ${loc.city.coord.lat}</span>
                     </div>
                     <div class="info-row">
-                        <span><b>${lang == 'en' ? "Country" : "Land"}: </b> ${loc.city.country}</span>
+                        <span><b>${translationService.translate(lang, "country")}: </b> ${loc.city.country}</span>
                     </div>
                     <div class="info-row">
-                        <span><b>${lang == 'en' ? "Timezone" : "Zeitzone"}: </b> ${loc.city.timezone}</span>
+                        <span><b>${translationService.translate(lang, "timezone")}: </b> ${loc.city.timezone}</span>
                     </div>
                     <div class="info-row">
-                        <span><b>${lang == 'en' ? "Sunrise" : "Sonnenaufgang"}: </b> ${loc.city.sun.rise}</span>
+                        <span><b>${translationService.translate(lang, "sunrise")}: </b> ${loc.city.sun.rise}</span>
                     </div>
                     <div class="info-row">
-                        <span><b>${lang == 'en' ? "Sunset" : "Sonnenuntergang"}: </b> ${loc.city.sun.set}</span>
+                        <span><b>${translationService.translate(lang, "sunset")}: </b> ${loc.city.sun.set}</span>
                     </div>
                 </section>
                 <section class="info-block">
                     <h2>
-                        ${lang == 'de' ? "Wetterdaten" : "Weather info"}
+                        ${translationService.translate(lang, "info")}
                     </h2>
                     <div class="info-row">
-                        <span><b>${lang == 'en' ? "Temperature (Cur, Min, Max)" : "Temperatur (Akt, Min, Max)"}: </b> ${loc.temperature.value} °C, ${loc.temperature.min} °C, ${loc.temperature.max} °C</span>
+                        <span><b>${translationService.translate(lang, "temp")}: </b> ${loc.temperature.value} °C, ${loc.temperature.min} °C, ${loc.temperature.max} °C</span>
                     </div>
                     <div class="info-row">
-                        <span><b>${lang == 'en' ? "Humidity" : "Luftfeuchtigkeit"}: </b> ${loc.humidity.value}</span>
+                        <span><b>${translationService.translate(lang, "hum")}: </b> ${loc.humidity.value}</span>
                     </div>
                     <div class="info-row">
-                        <span><b>${lang == 'en' ? "Pressure" : "Luftdruck"}: </b> ${loc.pressure.value}</span>
+                        <span><b>${translationService.translate(lang, "pre")}: </b> ${loc.pressure.value}</span>
                     </div>
                     <div class="info-row">
-                        <span><b>${lang == 'en' ? "Wind speed" : "Windgeschwindigkeit"}: </b> ${loc.wind.speed.value} m/s (${loc.wind.speed.name})</span>
+                        <span><b>${translationService.translate(lang, "windspe")}: </b> ${loc.wind.speed.value} m/s (${loc.wind.speed.name})</span>
                     </div>
                     <div class="info-row">
-                        <span><b>${lang == 'en' ? "Wind direction" : "Windrichtung"}: </b> ${loc.wind.direction.value} ${loc.wind.direction.name}</span>
+                        <span><b>${translationService.translate(lang, "winddir")}: </b> ${loc.wind.direction.value} ${loc.wind.direction.name}</span>
                     </div>
                     <div class="info-row">
-                        <span><b>${lang == 'en' ? "Clouds" : "Wolken"}: </b> ${loc.clouds.value} (${loc.clouds.name})</span>
+                        <span><b>${translationService.translate(lang, "clouds")}: </b> ${loc.clouds.value} (${loc.clouds.name})</span>
                     </div>
                     <div class="info-row">
-                        <span><b>${lang == 'en' ? "Visibility" : "Sichtbarkeit"}: </b> ${loc.visibility.value}</span>
+                        <span><b>${translationService.translate(lang, "vis")}: </b> ${loc.visibility.value}</span>
                     </div>
                     <div class="info-row">
-                        <span><b>${lang == 'en' ? "Last update" : "Letzte Aktualisierung"}: </b> ${loc.lastupdate.value}</span>
+                        <span><b>${translationService.translate(lang, "lastup")}: </b> ${loc.lastupdate.value}</span>
                     </div>
                 </section>
             </div>
